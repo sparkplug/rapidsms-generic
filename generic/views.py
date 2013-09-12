@@ -145,6 +145,10 @@ def generic(request,
             action_instance = action_class(request.POST, request=request)
             if action_instance.is_valid():
                 status_message, status_message_type = action_instance.perform(request, results)
+                #import pdb;pdb.set_trace()
+                if not status_message:
+                    return  status_message_type
+
             else:
                 status_message, status_message_type = action_instance.errors, 'error'
         else:

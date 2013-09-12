@@ -5,19 +5,26 @@
 
 {% block stylesheets %}
     {{ block.super }}
-    <link type="text/css" rel="stylesheet" href="{{ MEDIA_URL }}rapidsms/stylesheets/layout.css" />
-    <link type="text/css" rel="stylesheet" href="{{ MEDIA_URL }}rapidsms/stylesheets/splits.css" />
-    <link type="text/css" rel="stylesheet" href="{{ MEDIA_URL }}rapidsms/stylesheets/modules.css" />
-    <link type="text/css" rel="stylesheet" href="{{ MEDIA_URL }}rapidsms/stylesheets/icons.css" />
-    <link type="text/css" rel="stylesheet" href="{{MEDIA_URL}}generic/stylesheets/generic.css"/>
+    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}rapidsms/stylesheets/layout.css" />
+    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}rapidsms/stylesheets/splits.css" />
+    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}rapidsms/stylesheets/modules.css" />
+    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}rapidsms/stylesheets/icons.css" />
+    <link type="text/css" rel="stylesheet" href="{{STATIC_URL}}generic/stylesheets/generic.css"/>
 {% endblock %}
 
 {% block javascripts %}
     {{ block.super }}
-    <script src="{{MEDIA_URL}}generic/javascripts/generic.js?001" type="text/javascript"></script>
+    <script src="{{STATIC_URL}}generic/javascripts/generic.js?005" type="text/javascript"></script>
 {% endblock %}
 
 {% block content %}
+<section class="container" role="main">
+<article class="span12 data-block">
+<header>
+							<h2>{{ title }}</h2>
+
+						</header>
+    <section>
     <form method="POST">
         {% csrf_token %}
         {% block filters %}
@@ -28,32 +35,49 @@
                 {% for form in filter_forms %}
                     <div class="filterform" id="div_filter_{{ forloop.counter0 }}">
                             {% for field in form.visible_fields %}
-                                <tr>
-                                    <td>
+
                                         {% if forloop.first %}
                                             {% for hidden in form.hidden_fields %}
                                                 {{ hidden }}
                                             {% endfor %}
                                         {% endif %}
-                                        {{ field.label_tag }}
-                                        {% if field.help_text %}
-                                            <p><span class="filter_form_help">{{ field.help_text }}</span></p>
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        {{ field }}
-                                    </td>
-                                </tr>
+                                     <div class="control-group">
+                            <label class="control-label" for="id_first_name">{{ field.label_tag }}</label>
+                            <div class="controls">
+                                 {{ field }}
+                                <span class="help-block">{{ field.help_text  }}</span>
+
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+
                             {% endfor %}
                     </div>
                 {% endfor %}
                         </table>
-                <div class="filterform" id="div_filter_update">
+             <div class="form-actions">
+
+
                     <a href="javascript:void(0)" onclick="filter(this)" class="btn btn-primary">Update</a>
-                </div>
-                <div class="filterform" id="div_filter_clear">
+
+
                     <a href="./" class="btn btn-primary">Clear</a>
-                </div>
+
+
+
+
+                    </div>
+
+
+
             </div>
             <br/>
         {% endif %}
@@ -90,7 +114,7 @@
                                 {% endfor %}
                                 <tr>
                                     <td colspan="2">
-                                        <a class="{{ form.action_class }} btn" href="javascript:void(0)" onclick="actionx(this, '{{ cname }}',{{ page }})">{{ form.action_label }}</a>
+                                        <a class="{{ form.action_class }} btn" href="javascript:void(0)" onclick="actionx(this, '{{ cname }}',{{ page }})"><p data="{{ form.id_data }}" id="{{ form.id }}">{{ form.action_label }}</p></a>
                                     </td>
                                 </tr>
                             </table>
@@ -109,4 +133,6 @@
             {% endblock %}
         </div>
     </form>
+    </section>
+    </article>
 {% endblock %}
