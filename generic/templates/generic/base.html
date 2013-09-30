@@ -23,33 +23,45 @@
 <article class="span12 data-block">
 <header>
 							<h2>{{ title }}</h2>
+    {% block header%}
+
+        {% endblock %}
 
 						</header>
     <section>
-    <form method="POST">
-        {% csrf_token %}
-        {% block filters %}
-        {% if filter_forms|length > 0 %}
-            <div id="filters" class="module">
-                <h2>Filters</h2>
-                        <table>
-                {% for form in filter_forms %}
-                    <div class="filterform" id="div_filter_{{ forloop.counter0 }}">
-                            {% for field in form.visible_fields %}
+
+
+
+    <section class="filter-bar">
+
+
+							<form class="form-inline">
+                            {% csrf_token %}
+                            {% block filters1 %}
+                            {% if filter_forms|length > 0 %}
+                                <h2>Filter By:</h2>
+                            <div id="filters" class="module">
+								<fieldset name="fil">
+
+
+                                    {% for form in filter_forms %}
+                                    <div class="control-group">
+
+                                    {% for field in form.visible_fields %}
 
                                         {% if forloop.first %}
                                             {% for hidden in form.hidden_fields %}
                                                 {{ hidden }}
                                             {% endfor %}
                                         {% endif %}
-                                     <div class="control-group">
-                            <label class="control-label" for="id_first_name">{{ field.label_tag }}</label>
+
+
                             <div class="controls">
                                  {{ field }}
                                 <span class="help-block">{{ field.help_text  }}</span>
 
                             </div>
-                        </div>
+
 
 
 
@@ -61,10 +73,14 @@
 
 
                             {% endfor %}
-                    </div>
-                {% endfor %}
-                        </table>
-             <div class="form-actions">
+
+
+									</div>
+
+                                    {% endfor %}
+
+
+<div class="form-actions">
 
 
                     <a href="javascript:void(0)" onclick="filter(this)" class="btn btn-primary">Update</a>
@@ -76,14 +92,15 @@
 
 
                     </div>
+								</fieldset>
+                                {% endif %}
+                            {% endblock %}
+							</form>
 
 
+						</section>
 
-            </div>
-            <br/>
-        {% endif %}
-        {% endblock %}
-    </form>
+
     <form method="POST">
         {% csrf_token %}
         {% block actions %}
