@@ -18,6 +18,9 @@
 {% endblock %}
 
 {% block content %}
+    {% block header-data %}
+
+        {% endblock %}
     <div class="widget-container fluid-height col-md-12 icons ">
 <section class="container" role="main">
 <article class="span12 data-block">
@@ -28,7 +31,7 @@
         {% endblock %}
 
 						</header>
-    <section>
+    <section style="margin-top:10px;">
 
 
 
@@ -57,8 +60,9 @@
 
 
                             <div class="controls">
+                            <span class="help-block">{{ field.help_text  }}</span>
                                  {{ field }}
-                                <span class="help-block">{{ field.help_text  }}</span>
+
 
                             </div>
 
@@ -70,7 +74,7 @@
 
 
 
-
+<hr>
 
                             {% endfor %}
 
