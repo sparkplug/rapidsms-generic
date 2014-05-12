@@ -1,14 +1,13 @@
 <div id="div_results_loading">&nbsp;</div>
 <div id="div_panel_loading">&nbsp;</div>
+{% if status_message %}
+<div id="span_status_message" class="alert alert-{{ status_message_type }}">
+    {{ status_message }}
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+</div>
+{% endif %}
 {% if results_title %}
 <h2>{{ results_title }}</h2>
-{% endif %}
-{% if status_message %}
-    <div id="span_status_message" class="status_{{ status_message_type }}">
-        {{ status_message }}
-    <a href="javascript:void(0)" onclick="$('#span_status_message').hide();">Dismiss</a>
-    </div>
-
 {% endif %}
 {% block sort_fields %}
     <input type="hidden" id="input_sort_column" name="sort_column" value="{{ sort_column }}"/>
